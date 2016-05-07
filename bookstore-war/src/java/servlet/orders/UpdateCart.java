@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.orders;
+package servlet.orders;
 
 import entities.BookOrder;
 import entities.Cart;

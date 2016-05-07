@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.orders;
+package servlet.orders;
 
-import entities.AddressShipping;
+import entities.Book;
 import entities.BookOrder;
 import entities.Cart;
-import entities.CartSave;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,32 +17,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sessionbean.AddressShippingFacadeLocal;
+import sessionbean.BookFacadeLocal;
 import sessionbean.BookOrderFacadeLocal;
-import sessionbean.CartFacadeLocal;
-import sessionbean.CartSaveFacadeLocal;
 
 /**
  *
  * @author hoangdd
  */
-@WebServlet(name = "AddAddressShipping", urlPatterns = {"/AddAddressShipping"})
-public class AddAddressShipping extends HttpServlet {
+@WebServlet(name = "AddToCart", urlPatterns = {"/AddToCart"})
+public class AddToCart extends HttpServlet {
 
     @EJB
-    private CartSaveFacadeLocal cartSaveFacade1;
-    
-    @EJB
-    private CartSaveFacadeLocal cartSaveFacade;
-    
-    @EJB
-    private CartFacadeLocal cartFacade;
-    
-    @EJB
     private BookOrderFacadeLocal bookOrderFacade;
-    
+
     @EJB
-    private AddressShippingFacadeLocal addressShippingFacade;
+    private BookFacadeLocal bookFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,48 +45,38 @@ public class AddAddressShipping extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
-        String num = request.getParameter("num");
-        String ward = request.getParameter("ward");
-        String district = request.getParameter("district");
-        String city = request.getParameter("city");
-        String phonePerson1 = request.getParameter("phonenum1");
-        String namePerson1 = request.getParameter("name1");
-        String phonePerson2 = request.getParameter("phonenum2");
-        String namePerson2 = request.getParameter("name2");
-        
-        AddressShipping as = new AddressShipping();
-        as.setNum(num);
-        as.setWard(ward);
-        as.setDistric(district);
-        as.setCity(city);
-        as.setNamePerson1(namePerson1);
-        as.setNamePerson2(namePerson2);
-        as.setPhonePerson1(phonePerson1);
-        as.setPhonePerson2(phonePerson2);
-        as.setIdAddressShipping(addressShippingFacade.getMaxID() + 1);
-        addressShippingFacade.create(as);
-        
+        int idBook = Integer.parseInt(request.getParameter("idBook"));
+        System.out.println("AddToCart.java : idBook : " + idBook);
         Cart cart = (Cart) session.getAttribute("cart");
-        List<BookOrder> listBookOrder = cart.getBookOrderList();
+        int soLuong = Integer.parseInt(request.getParameter("quantity"));
+        Book book = bookFacade.find(idBook);
+        BookOrder bookOrder = new BookOrder();
+        bookOrder.setQuantity(soLuong);
+        bookOrder.setTotalPrice(book.getOriginalprice() * soLuong);
+        bookOrder.setIdBook(book);
+        bookOrder.setIdCart(cart);
         
+        List<BookOrder> listBookOrder =  cart.getBookOrderList();
+
+//
+        boolean trungPhanTu = false;
         for (int i = 0; i < listBookOrder.size(); i++) {
-            listBookOrder.get(i).setIdBookOrder(bookOrderFacade.getMaxID()+1);
-            bookOrderFacade.create(listBookOrder.get(i));
+            if (listBookOrder.get(i).getIdBook().getIdBook() == idBook) {
+                listBookOrder.set(i, bookOrder);
+//                bookOrderFacade.edit(listBookOrder.get(i));
+                trungPhanTu = true;
+                break;
+            }
         }
 
-        double sum = 0;
-        for (BookOrder bookOrder : listBookOrder){
-            sum += bookOrder.getTotalPrice();
+        if (trungPhanTu == false) {
+            listBookOrder.add(bookOrder);
+//            bookOrderFacade.create(bookOrder);
+            cart.setBookOrderList(listBookOrder);
         }
-        
-        cart.setTotalPrice(sum);
-        cartFacade.edit(cart);
-        
-        cart = new Cart();
         session.setAttribute("cart", cart);
-        response.sendRedirect("/bookstore-war/index/home/home.jsp");
-        
+        System.out.println("AddToCart.java : kich thuoc list BookOrder : " + listBookOrder.size());
+        response.sendRedirect("/bookstore-war/index/book/detailBook.jsp?idBook=" + idBook);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

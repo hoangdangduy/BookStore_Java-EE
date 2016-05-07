@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+    
+    <ejb-local-ref>
+        <ejb-ref-name>BookFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>sessionbean.BookFacadeLocal</local>
+    </ejb-local-ref>
+        
+    <ejb-local-ref>
+        <ejb-ref-name>AddressFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>sessionbean.AddressFacadeLocal</local>
+        <ejb-link>AddressFacade</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>FullnameFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>sessionbean.FullnameFacadeLocal</local>
+        <ejb-link>FullnameFacade</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>PersonFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>sessionbean.PersonFacadeLocal</local>
+        <ejb-link>PersonFacade</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>CustomerFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>sessionbean.CustomerFacadeLocal</local>
+        <ejb-link>CustomerFacade</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>CustomerMemberFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>sessionbean.CustomerMemberFacadeLocal</local>
+        <ejb-link>CustomerMemberFacade</ejb-link>
+    </ejb-local-ref>
+
+</web-app>

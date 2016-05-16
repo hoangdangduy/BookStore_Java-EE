@@ -24,14 +24,15 @@
 
         <nav class="navbar navbar-inverse">
             <div class="container">
-                <!--                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>                        
-                                    </button>
-                                    <a class="navbar-brand" href="#">Logo</a>
-                                </div>-->
+                <div class="navbar-header">
+<!--                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>-->
+                    <!--<a class="navbar-brand" href="#">Logo</a>-->
+                    <img src="../../imageBook/logo1.jpg">
+                </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="../home/home.jsp">Home</a></li>
@@ -103,23 +104,23 @@
 
                                 <tbody>
                                     <tr>
-                                        <td>Tên sách: <%=book.getTitle()%></td>
+                                        <td><b>Tên sách:</b> <font color="#EE7600"><%=book.getTitle()%></font></td>
                                     </tr>
                                     <tr>
-                                        <td>Giá: $<%=book.getOriginalprice()%></td>
+                                        <td><b>Giá:</b> <font color="#EE7600">$<%=book.getOriginalprice()%></font></td>
                                     </tr>
                                     <tr>
-                                        <td>Năm xuất bản: <%=book.getPublishyear()%></td>
+                                        <td><b>Năm xuất bản:</b> <font color="#EE7600"><%=book.getPublishyear()%></font></td>
                                     </tr>
                                     <tr>
-                                        <td>Nhà xuất bản: <%=book.getPublisher()%></td>
+                                        <td><b>Nhà xuất bản:</b> <font color="#EE7600"><%=book.getPublisher()%></font></td>
                                     </tr>
                                     <tr>
-                                        <td>Tác giả: <%=book.getAuthor()%></td>
+                                        <td><b>Tác giả:</b> <font color="#EE7600"><%=book.getAuthor()%></font></td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            Số lượng:
+                                            <b>Số lượng:</b>
                                             <input type="number" id="qta_field" class="text_box" min="1" max="100" required class="col-xs-2">
 
                                             <script type="text/javascript">
@@ -145,9 +146,8 @@
                                         <td align="center">
                                             <!--<button type="button" class="btn btn-default">-->
                                             <%if (session.getAttribute("username") != null) {%>
-                                                <span><a id="id1" href="/bookstore-war/AddToCart?method=get&idBook=<%=book.getIdBook()%>&quantity=">Add to Cart</a>
+                                                <span><a id="id1" class="btn btn-warning" style=" border-radius:0; background-color: #EE7600;" role="button" href="/bookstore-war/AddToCart?method=get&idBook=<%=book.getIdBook()%>&quantity=">Add to Cart</a>
                                             <%}  %>
-                                                
                                                     <!--</button>-->
 
                                                     </td>
@@ -195,12 +195,8 @@
                                                                     <span>
                                                                         Giá: $<%=listBook.get(i).getOriginalprice()%>
                                                                     </span>
-
-                                                                    <!--                                <a href = "#" class = "btn btn-warning" style=" border-radius:0;" role = "button">
-                                                                                                        Add to cart
-                                                                                                    </a>-->
                                                                     <a href="/bookstore-war/index/book/detailBook.jsp?idBook=<%=listBook.get(i).getIdBook()%>" 
-                                                                       class = "btn btn-warning" style=" border-radius:0;" role = "button">Add to Cart</a>
+                                                                       class = "btn btn-warning" style=" border-radius:0; background-color: #EE7600;" role = "button">Add to Cart</a>
                                                                 </p>
 
                                                             </div>

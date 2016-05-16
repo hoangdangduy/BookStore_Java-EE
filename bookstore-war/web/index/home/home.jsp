@@ -22,14 +22,15 @@
 
         <nav class="navbar navbar-inverse">
             <div class="container">
-                <!--                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>                        
-                                    </button>
-                                    <a class="navbar-brand" href="#">Logo</a>
-                                </div>-->
+                <div class="navbar-header">
+<!--                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>-->
+                    <!--<a class="navbar-brand" href="#">Logo</a>-->
+                    <img src="../../imageBook/logo1.jpg">
+                </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="../home/home.jsp">Home</a></li>
@@ -158,18 +159,14 @@
                     <div class = "thumbnail">
                         <img src = "../../imageBook/<%=listBook.get(i).getImage()%>" alt = "Generic placeholder thumbnail" >
                         <div class = "caption">
-                            <p><%=listBook.get(i).getTitle()%></p>
+                            <p><b><%=listBook.get(i).getTitle()%></b></p>
 
                             <p>
                                 <span>
                                     Giá: $<%=listBook.get(i).getOriginalprice()%>
                                 </span>
-
-<!--                                <a href = "#" class = "btn btn-warning" style=" border-radius:0;" role = "button">
-                                    Add to cart
-                                </a>-->
                                 <a href="/bookstore-war/index/book/detailBook.jsp?idBook=<%=listBook.get(i).getIdBook()%>" 
-                                   class = "btn btn-warning" style=" border-radius:0;" role = "button">Add to Cart</a>
+                                   class = "btn btn-warning" style=" border-radius:0; background-color: #EE7600;" role = "button">Add to Cart</a>
                             </p>
 
                         </div>

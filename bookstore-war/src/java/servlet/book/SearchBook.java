@@ -44,7 +44,7 @@ public class SearchBook extends HttpServlet {
         String searchBook = request.getParameter("searchBook");
         List<Book> listBook = bookFacade.searchBookByName(searchBook);
 
-        System.out.println("SearchBook.java : "+  listBook.get(0).getTitle());
+//        System.out.println("SearchBook.java : "+  listBook.get(0).getTitle());
         
 //        request.setAttribute("listBookSearch", listBook);
         session.setAttribute("listBookSearch", listBook);

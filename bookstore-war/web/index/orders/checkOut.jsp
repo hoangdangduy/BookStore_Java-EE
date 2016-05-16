@@ -1,3 +1,4 @@
+<%@page import="java.util.Random"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entities.BookOrder"%>
 <%@page import="entities.Cart"%>
@@ -23,14 +24,15 @@
     <body>
         <nav class="navbar navbar-inverse">
             <div class="container">
-                <!--                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>                        
-                                    </button>
-                                    <a class="navbar-brand" href="#">Logo</a>
-                                </div>-->
+                <div class="navbar-header">
+<!--                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>-->
+                    <!--<a class="navbar-brand" href="#">Logo</a>-->
+                    <img src="../../imageBook/logo1.jpg">
+                </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="../home/home.jsp">Home</a></li>
@@ -100,16 +102,19 @@
 
                                 <tbody>
                                     <tr>
-                                        <td>Tên sách: <%=listBookOrder.get(i).getIdBook().getTitle()%></td>
+                                        <td><b>Tên sách:</b> <font color="#EE7600"><%=listBookOrder.get(i).getIdBook().getTitle()%></font></td>
                                     </tr>
                                     <tr>
-                                        <td>Giá: $<%=listBookOrder.get(i).getIdBook().getOriginalprice()%></td>
+                                        <td><b>Giá:</b> <font color="#EE7600">$<%=listBookOrder.get(i).getIdBook().getOriginalprice()%></font></td>
                                     </tr>
                                     <tr>
-                                        <td>Tác giả: <%=listBookOrder.get(i).getIdBook().getAuthor()%></td>
+                                        <td><b>Tác giả:</b> <font color="#EE7600"><%=listBookOrder.get(i).getIdBook().getAuthor()%></font></td>
                                     </tr>
                                     <tr>
-                                        <td>Số lượng: <%=listBookOrder.get(i).getQuantity()%> --> Tiền: $<%=listBookOrder.get(i).getTotalPrice()%></td> 
+                                        <td><b>Số lượng:</b> <font color="#EE7600"><%=listBookOrder.get(i).getQuantity()%></font></td> 
+                                    </tr>
+                                    <tr>
+                                        <td><b>Tiền:</b> <font color="#EE7600">$<%=listBookOrder.get(i).getTotalPrice()%></font></td>
                                     </tr>
                                     <tr>
                                         <td align="center">
@@ -135,7 +140,7 @@
 
                     <hr>
                     <% if (listBookOrder.size() > 0){ %>
-                        <a href="/bookstore-war/index/orders/addressShipping.jsp" class = "btn btn-warning text-center" style=" border-radius:0;" role = "button">Add to Cart</a>
+                    <p align="center"><a href="/bookstore-war/index/orders/addressShipping.jsp" class = "btn btn-warning text-center" style=" border-radius:0; background-color: #EE7600;" role = "button">Send Order</a></p>
                     <% } %>
                 </div>
                 <div class="col-md-3" style="margin-left: 75px">
@@ -165,7 +170,7 @@
                                 </span>
 
                                 <a href="/bookstore-war/index/book/detailBook.jsp?idBook=<%=listBook.get(i).getIdBook()%>" 
-                                   class = "btn btn-warning" style=" border-radius:0;" role = "button">Add to Cart</a>
+                                   class = "btn btn-warning" style=" border-radius:0; background-color: #EE7600;" role = "button">Add to Cart</a>
                             </p>
 
                         </div>

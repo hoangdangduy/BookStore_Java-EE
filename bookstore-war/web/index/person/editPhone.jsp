@@ -3,31 +3,33 @@
 <%@page import="javax.naming.InitialContext"%>
 <!DOCTYPE html>
 <html lang="en">
-        <%@ page language="java" contentType="text/html; charset=UTF-8"
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
              pageEncoding="UTF-8"%>
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../../css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="../..//js/bootstrap.min.js"></script>
-  <style>
-  
-  </style>
-</head>
-<body>
+    <head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../../css/bootstrap.min.css">
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
+        <script src="../../js/jquery-1.12.3.min.js"></script>
+        <script src="../..//js/bootstrap.min.js"></script>
+        <style>
 
- <nav class="navbar navbar-inverse">
+        </style>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-inverse">
             <div class="container">
-                <!--                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>                        
-                                    </button>
-                                    <a class="navbar-brand" href="#">Logo</a>
-                                </div>-->
+                <div class="navbar-header">
+                    <!--                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>                        
+                                        </button>-->
+                    <!--<a class="navbar-brand" href="#">Logo</a>-->
+                    <img src="../../imageBook/logo1.jpg">
+                </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="../home/home.jsp">Home</a></li>
@@ -64,33 +66,33 @@
                 </div>
             </div>
         </nav>
-  
-<div class = "container">
-<div class="row">
-  <div class="col-xs-6 col-md-3">
-		<table class="table table-bordered" >
-			 <thead>
-				  <tr bgcolor="#EE7600">
-					<th  style="color:#ffffff;" >Edit Account</th>
-				  </tr>
-			</thead>
-			<tbody> 
-			  <tr>
-				<td bgcolor="#EBE8E8"><a href="../person/editAddress.jsp">Thay đổi địa chỉ</a></td>
-			  </tr>
-			  <tr>
-                              <td bgcolor="#EBE8E8" class="active"><a href="#">Thay đổi điện thoại</a></td>
-			  </tr>
-			  <tr>
-				<td bgcolor="#EBE8E8"><a href="../person/editPassword.jsp">Thay đổi mật khẩu</a></td>
-			  </tr>
-			  
-			</tbody>
-		  </table>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-md-9	">
-		<div class="col-md-6 col-md-offset-3">
-                    
+
+        <div class = "container">
+            <div class="row">
+                <div class="col-xs-6 col-md-3">
+                    <table class="table table-bordered" >
+                        <thead>
+                            <tr bgcolor="#EE7600">
+                                <th  style="color:#ffffff;" >Edit Account</th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                            <tr>
+                                <td bgcolor="#EBE8E8"><a href="../person/editAddress.jsp">Thay đổi địa chỉ</a></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#EBE8E8" class="active"><a href="#">Thay đổi điện thoại</a></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#EBE8E8"><a href="../person/editPassword.jsp">Thay đổi mật khẩu</a></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-9	">
+                    <div class="col-md-6 col-md-offset-3">
+
                         <%
                             Integer idPerson = (Integer) session.getAttribute("idPerson");
                             InitialContext ctx = new InitialContext();
@@ -98,32 +100,32 @@
                             Customer customer = customerFacadeLocal.find(idPerson);
                         %>
                         <form method="post" action="/bookstore-war/EditPhone">
-				  <div class="form-group">
-					<label>Phone:</label>
-					<input type="input" class="form-control" placeholder="<%=customer.getPhonenum() %>" name="phone">
-				  </div>
-				  <div class="form-group">
-					<label>Email:</label>
-					<input type="email" class="form-control" placeholder="<%=customer.getEmail() %>" name="email">
-				  </div>
-				  <button type="submit" class="btn btn-default center-block" style="text-align: center; background-color: #EE7600; color:#ffffff;">Change</button> 
-				</form>
-		</div>
-  </div>
-</div>
-</div>
-  
-  <br><br>
-  
+                            <div class="form-group">
+                                <label>Phone:</label>
+                                <input type="input" class="form-control" placeholder="<%=customer.getPhonenum()%>" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="email" class="form-control" placeholder="<%=customer.getEmail()%>" name="email">
+                            </div>
+                            <button type="submit" class="btn btn-default center-block" style="text-align: center; background-color: #EE7600; color:#ffffff;">Change</button> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  
+        <br><br>
 
 
 
-<div class="container-fluid text-center" style="background-color: #101010">  
-	<include src="footer.html"></include>
-	<div w3-include-html="footer.html"></div>
-</div>
 
-</body>
+
+
+        <div class="container-fluid text-center" style="background-color: #101010">  
+            <include src="footer.html"></include>
+            <div w3-include-html="footer.html"></div>
+        </div>
+
+    </body>
 </html>

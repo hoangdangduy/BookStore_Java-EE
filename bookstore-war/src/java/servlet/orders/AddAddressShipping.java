@@ -8,9 +8,7 @@ package servlet.orders;
 import entities.AddressShipping;
 import entities.BookOrder;
 import entities.Cart;
-import entities.CartSave;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import sessionbean.AddressShippingFacadeLocal;
 import sessionbean.BookOrderFacadeLocal;
 import sessionbean.CartFacadeLocal;
-import sessionbean.CartSaveFacadeLocal;
+import sessionbean.CustomerMemberFacadeLocal;
 
 /**
  *
@@ -32,17 +30,14 @@ import sessionbean.CartSaveFacadeLocal;
 public class AddAddressShipping extends HttpServlet {
 
     @EJB
-    private CartSaveFacadeLocal cartSaveFacade1;
-    
-    @EJB
-    private CartSaveFacadeLocal cartSaveFacade;
-    
+    private CustomerMemberFacadeLocal customerMemberFacade;
+
     @EJB
     private CartFacadeLocal cartFacade;
-    
+
     @EJB
     private BookOrderFacadeLocal bookOrderFacade;
-    
+
     @EJB
     private AddressShippingFacadeLocal addressShippingFacade;
 
@@ -58,7 +53,7 @@ public class AddAddressShipping extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
+
         String num = request.getParameter("num");
         String ward = request.getParameter("ward");
         String district = request.getParameter("district");
@@ -67,7 +62,7 @@ public class AddAddressShipping extends HttpServlet {
         String namePerson1 = request.getParameter("name1");
         String phonePerson2 = request.getParameter("phonenum2");
         String namePerson2 = request.getParameter("name2");
-        
+
         AddressShipping as = new AddressShipping();
         as.setNum(num);
         as.setWard(ward);
@@ -79,27 +74,38 @@ public class AddAddressShipping extends HttpServlet {
         as.setPhonePerson2(phonePerson2);
         as.setIdAddressShipping(addressShippingFacade.getMaxID() + 1);
         addressShippingFacade.create(as);
-        
+
         Cart cart = (Cart) session.getAttribute("cart");
         List<BookOrder> listBookOrder = cart.getBookOrderList();
-        
+
         for (int i = 0; i < listBookOrder.size(); i++) {
-            listBookOrder.get(i).setIdBookOrder(bookOrderFacade.getMaxID()+1);
+            listBookOrder.get(i).setIdBookOrder(bookOrderFacade.getMaxID() + 1);
             bookOrderFacade.create(listBookOrder.get(i));
         }
 
         double sum = 0;
-        for (BookOrder bookOrder : listBookOrder){
+        for (BookOrder bookOrder : listBookOrder) {
             sum += bookOrder.getTotalPrice();
         }
-        
+
         cart.setTotalPrice(sum);
         cartFacade.edit(cart);
-        
+
         cart = new Cart();
+
+        int idCart;
+
+        try {
+            idCart = cartFacade.getMaxID();
+        } catch (Exception e) {
+            idCart = 1;
+        }
+        cart.setIdCart(idCart + 1);
+        cartFacade.create(cart);
         session.setAttribute("cart", cart);
+//        session.removeAttribute("cart");
         response.sendRedirect("/bookstore-war/index/home/home.jsp");
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -6,7 +6,6 @@
 package sessionbean;
 
 import entities.Book;
-import entities.BookOrder;
 import java.util.List;
 import javax.ejb.Local;
 

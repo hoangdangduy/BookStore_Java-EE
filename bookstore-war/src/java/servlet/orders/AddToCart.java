@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.lang3.math.NumberUtils;
 import sessionbean.BookFacadeLocal;
 import sessionbean.BookOrderFacadeLocal;
 
@@ -48,22 +49,41 @@ public class AddToCart extends HttpServlet {
         int idBook = Integer.parseInt(request.getParameter("idBook"));
         System.out.println("AddToCart.java : idBook : " + idBook);
         Cart cart = (Cart) session.getAttribute("cart");
-        int soLuong = Integer.parseInt(request.getParameter("quantity"));
+        String strSoLuong = request.getParameter("quantity");
+        int soLuong;
+        if (NumberUtils.isNumber(strSoLuong)){
+            soLuong = Integer.parseInt(strSoLuong);
+        }else{
+            System.out.println("AddToCart.java : so luong sach nhap vao la string");
+            response.sendRedirect("/bookstore-war/index/book/detailBook.jsp?idBook=" + idBook);
+            return;
+        }
+        
+        if ((soLuong < 1)) {
+            System.out.println("AddToCart.java : so luong sach < 1");
+            response.sendRedirect("/bookstore-war/index/book/detailBook.jsp?idBook=" + idBook);
+            return;
+        }
+//        try {
+//            soLuong = Integer.parseInt(request.getParameter("quantity"));
+//        } catch (NumberFormatException | IllegalStateException e) {
+//            response.sendRedirect("/bookstore-war/index/book/detailBook.jsp?idBook=" + idBook);
+//            return;
+//        }
         Book book = bookFacade.find(idBook);
         BookOrder bookOrder = new BookOrder();
         bookOrder.setQuantity(soLuong);
         bookOrder.setTotalPrice(book.getOriginalprice() * soLuong);
         bookOrder.setIdBook(book);
         bookOrder.setIdCart(cart);
-        
-        List<BookOrder> listBookOrder =  cart.getBookOrderList();
+
+        List<BookOrder> listBookOrder = cart.getBookOrderList();
 
 //
         boolean trungPhanTu = false;
         for (int i = 0; i < listBookOrder.size(); i++) {
             if (listBookOrder.get(i).getIdBook().getIdBook() == idBook) {
                 listBookOrder.set(i, bookOrder);
-//                bookOrderFacade.edit(listBookOrder.get(i));
                 trungPhanTu = true;
                 break;
             }
@@ -71,9 +91,9 @@ public class AddToCart extends HttpServlet {
 
         if (trungPhanTu == false) {
             listBookOrder.add(bookOrder);
-//            bookOrderFacade.create(bookOrder);
             cart.setBookOrderList(listBookOrder);
         }
+        
         session.setAttribute("cart", cart);
         System.out.println("AddToCart.java : kich thuoc list BookOrder : " + listBookOrder.size());
         response.sendRedirect("/bookstore-war/index/book/detailBook.jsp?idBook=" + idBook);
